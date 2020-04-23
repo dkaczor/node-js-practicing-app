@@ -1,0 +1,1 @@
+export let variable:Number = 1;
