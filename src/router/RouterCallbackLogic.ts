@@ -1,4 +1,4 @@
-import { Data } from "../types/DataTypes";
+import { Data } from "types/DataTypes";
 
 export class CallbackClass {
   routingCallback(data: Data) {
@@ -6,5 +6,12 @@ export class CallbackClass {
   }
   routingCallbackAdd() {
     return { added: "OK" };
+  }
+  validationError(data: any) {
+    return {
+      status: "error",
+      message: "Invalid request data",
+      data,
+    };
   }
 }

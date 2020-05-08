@@ -16,4 +16,9 @@ export class MongoApplication {
   getApp(): express.Application {
     return this.app;
   }
+  listen(): void {
+    this.getApp().listen(3000, () =>
+      console.log("Listening for connections...")
+    );
+  }
 }

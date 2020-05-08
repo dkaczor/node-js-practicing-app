@@ -28,17 +28,15 @@ export class MongoConnector {
     }
   }
 
-  async getMongoCollection(): Promise<any> {
+  async getCollection(): Promise<any> {
     try {
-      let data = await this.connection.then((db: any) => {
-        db.db(this.connectionData.database).collection(
-          this.connectionData.collection
-        );
-      });
-      console.log(data);
-      return data;
+      return await this.connection.then((db: any) =>
+        db
+          .db(this.connectionData.database)
+          .collection(this.connectionData.collection)
+      );
     } catch (err) {
-      console.log(err);
+      return err;
     }
   }
 }

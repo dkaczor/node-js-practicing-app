@@ -1,29 +1,14 @@
-import { Data } from "../types/DataTypes";
+import { Data } from "types/DataTypes";
 import { MongoConnector } from "./MongoConnector";
-import { MongoClient } from "mongodb";
 
 export class MongoQueryHandler {
-  private connector: Promise<MongoClient>;
-  private db: string;
-  private collection: string;
+  private connector: Promise<any>;
   constructor() {
-    this.connector = new MongoConnector().getMongoClient();
-    this.db = `${process.env.DATABASE}`;
-    this.collection = `${process.env.COLLECTION}`;
-  }
-
-  async getCollection() {
-    try {
-      return await this.connector.then((db: any) =>
-        db.db(this.db).collection(this.collection)
-      );
-    } catch (err) {
-      return err;
-    }
+    this.connector = new MongoConnector().getCollection();
   }
 
   getCollectionDataByArray(id: number, callback: (data: Data) => void): void {
-    this.getCollection()
+    this.connector
       .then((collection) => {
         collection.findOne({ likes: id }, (err: any, result: Data) => {
           err ? callback(err) : callback(result);
@@ -33,7 +18,7 @@ export class MongoQueryHandler {
   }
 
   addNewPosition(data: Data, callback: (data: Data) => void): void {
-    this.getCollection()
+    this.connector
       .then((collection) => {
         collection.insertOne(
           { likes: data.likes, title: data.title },

@@ -1,6 +1,6 @@
-import { MongoQueryHandler } from "../db/MongoQueryHandler";
+import { MongoQueryHandler } from "../database/MongoQueryHandler";
 import { Response } from "express";
-import { Data } from "../types/DataTypes";
+import { Data } from "types/DataTypes";
 import { CallbackClass } from "./RouterCallbackLogic";
 
 export class RouterResponses {

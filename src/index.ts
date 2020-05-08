@@ -8,6 +8,4 @@ const application: MongoApplication = new MongoApplication();
 const router: MongoRouter = new MongoRouter();
 application.applyPostBodyUsage();
 application.applyRouting(router.prepareRouting());
-application
-  .getApp()
-  .listen(3000, () => console.log("Listening for connections..."));
+application.listen();
