@@ -1,6 +1,5 @@
 import { MongoQueryHandler } from "../db/MongoQueryHandler";
-import { Request, Response } from "express";
-import { ParamsDictionary, Query } from "express-serve-static-core";
+import { Response } from "express";
 import { Data } from "../types/DataTypes";
 import { CallbackClass } from "./RouterCallbackLogic";
 
@@ -21,7 +20,7 @@ export class RouterResponses {
   }
 
   saveData(data: Data, res: Response<any>): void {
-    let routingCallback = (data: Data) => {
+    let routingCallback = () => {
       res.status(200).json(this.callbackClasses.routingCallbackAdd());
     };
     this.mongoController.addNewPosition(data, routingCallback);
