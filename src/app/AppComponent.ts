@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 export class MongoApplication {
   private app: express.Application;
@@ -12,6 +13,7 @@ export class MongoApplication {
   applyPostBodyUsage(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cors());
   }
   getApp(): express.Application {
     return this.app;
