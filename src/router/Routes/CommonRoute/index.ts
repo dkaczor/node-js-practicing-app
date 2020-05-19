@@ -3,20 +3,17 @@ import { Router } from "express";
 import { validate } from "joi";
 import { CommonRouterValidator } from "./CommonRoute.validator";
 import { CommonRouteResponses } from "./CommonRoute.responses";
-import { TokenHandler } from "../../../router/TokenHandler";
+import { RouterClass } from "../../../router/Classes/Route.class";
 
-export class CommonRouteRouter {
-  private router: Router;
+export class CommonRouteRouter extends RouterClass {
   private actions: CommonRouteActions;
   private routerValidator: CommonRouterValidator;
   private responses: CommonRouteResponses;
-  private tokenHandler: TokenHandler;
   constructor() {
-    this.router = Router();
+    super();
     this.actions = new CommonRouteActions();
     this.routerValidator = new CommonRouterValidator();
     this.responses = new CommonRouteResponses();
-    this.tokenHandler = new TokenHandler();
   }
   getRouting(): Router {
     this.router.post("/getToken", (req, res) => {

@@ -1,10 +1,9 @@
 import { Data } from "types/DataTypes";
-import { MongoConnector } from "./MongoConnector";
+import { QueryHandler } from "./Classes/QueryHandler.class";
 
-export class MongoQueryHandler {
-  private connector: Promise<any>;
+export class MongoQueryHandler extends QueryHandler {
   constructor() {
-    this.connector = new MongoConnector().getCollection();
+    super();
   }
 
   getCollectionDataByArray(id: number, callback: (data: Data) => void): void {

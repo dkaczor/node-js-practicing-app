@@ -12,3 +12,8 @@ export interface ParamsWithUser
   extends Request<ParamsDictionary, any, any, any> {
   user?: any;
 }
+
+export interface TokenSettingsInterface {
+  separator: string;
+  expires: string | number | undefined;
+}

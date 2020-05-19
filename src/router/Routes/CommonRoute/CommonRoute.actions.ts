@@ -1,15 +1,13 @@
-import { MongoQueryHandler } from "../../../database/MongoQueryHandler";
 import { Response } from "express";
 import { CommonRouteResponses } from "./CommonRoute.responses";
-import { TokenHandler } from "../../../router/TokenHandler";
+import { TokenHandler } from "../../../tokens/TokenHandler";
 import { userNotFound } from "../../../router/RouterErrors/TokenErrors";
+import { RouteActions } from "../../../router/Classes/RouteActions.class";
 
-export class CommonRouteActions {
-  private mongoController: MongoQueryHandler;
+export class CommonRouteActions extends RouteActions {
   private responses: CommonRouteResponses;
-
   constructor() {
-    this.mongoController = new MongoQueryHandler();
+    super();
     this.responses = new CommonRouteResponses();
   }
 

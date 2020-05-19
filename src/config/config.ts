@@ -1,7 +1,4 @@
-interface TokenSettingsInterface {
-  separator: string;
-  expires: string | number | undefined;
-}
+import { TokenSettingsInterface } from "types/DataTypes";
 
 export const TokenSettings: TokenSettingsInterface = {
   separator: " ",

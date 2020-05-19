@@ -4,20 +4,17 @@ import { validate } from "joi";
 import { BasicRouteValidator } from "./BasicRoute.validator";
 import { BasicRouteResponses } from "./BasicRoute.responses";
 import { ParamsWithUser } from "types/DataTypes";
-import { TokenHandler } from "../../../router/TokenHandler";
+import { RouterClass } from "../../../router/Classes/Route.class";
 
-export class BasicRouteRouter {
-  private router: Router;
+export class BasicRouteRouter extends RouterClass {
   private actions: BasicRouteActions;
   private routerValidator: BasicRouteValidator;
   private responses: BasicRouteResponses;
-  private tokenHandler: TokenHandler;
   constructor() {
-    this.router = Router();
+    super();
     this.actions = new BasicRouteActions();
     this.routerValidator = new BasicRouteValidator();
     this.responses = new BasicRouteResponses();
-    this.tokenHandler = new TokenHandler();
   }
   getRouting(): Router {
     this.router.get(
@@ -30,7 +27,7 @@ export class BasicRouteRouter {
           (err, value) => {
             err
               ? res.status(422).json(this.responses.validationError(value))
-              : this.actions.getDataByLikes(Number(req.params.userId), res);
+              : this.actions.getDataById(Number(req.params.userId), res);
           }
         );
       }

@@ -1,6 +1,6 @@
 import { Data } from "types/DataTypes";
 import { noFetchedData, addedData } from "./BasicRoute.statuses";
-import { RouteResponses } from "../RouteResponses.class";
+import { RouteResponses } from "../../Classes/RouteResponses.class";
 
 export class BasicRouteResponses extends RouteResponses {
   routingCallback = (data: Data) => ({
