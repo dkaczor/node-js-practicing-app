@@ -2,16 +2,9 @@ import { ParamsWithUser } from "types/DataTypes";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 import { TEMPORARY_USER_DATA } from "../app/TemporaryConstants";
-import { CallbackClass } from "./RouterCallbackLogic";
-import { userNotFound } from "./RouterErrors/TokenErrors";
 import { TokenSettings } from "../config/config";
 
 export class TokenHandler {
-  private routerCallback: CallbackClass;
-
-  constructor() {
-    this.routerCallback = new CallbackClass();
-  }
   authenticateJWT = (
     req: ParamsWithUser,
     res: Response<any>,
@@ -43,15 +36,12 @@ export class TokenHandler {
       );
     });
 
-    if (!selectedUser) {
-      return res
-        .status(422)
-        .json(this.routerCallback.validationError(userNotFound));
-    }
-    return jwt.sign(
-      { userName: selectedUser.userName, role: selectedUser.role },
-      `${process.env.API_TOKEN}`,
-      { expiresIn: TokenSettings.expires }
-    );
+    return !selectedUser
+      ? false
+      : jwt.sign(
+          { userName: selectedUser.userName, role: selectedUser.role },
+          `${process.env.API_TOKEN}`,
+          { expiresIn: TokenSettings.expires }
+        );
   };
 }
