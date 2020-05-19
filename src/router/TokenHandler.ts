@@ -3,6 +3,8 @@ import { Response } from "express";
 import jwt from "jsonwebtoken";
 import { TEMPORARY_USER_DATA } from "../app/TemporaryConstants";
 import { CallbackClass } from "./RouterCallbackLogic";
+import { userNotFound } from "./RouterErrors/TokenErrors";
+import { TokenSettings } from "../config/config";
 
 export class TokenHandler {
   private routerCallback: CallbackClass;
@@ -19,7 +21,7 @@ export class TokenHandler {
 
     if (authorization) {
       jwt.verify(
-        authorization.split(" ")[1],
+        authorization.split(TokenSettings.separator)[1],
         `${process.env.API_TOKEN}`,
         (err, user) => {
           if (err) {
@@ -44,12 +46,12 @@ export class TokenHandler {
     if (!selectedUser) {
       return res
         .status(422)
-        .json(this.routerCallback.validationError("Not found user"));
+        .json(this.routerCallback.validationError(userNotFound));
     }
     return jwt.sign(
       { userName: selectedUser.userName, role: selectedUser.role },
       `${process.env.API_TOKEN}`,
-      { expiresIn: "20m" }
+      { expiresIn: TokenSettings.expires }
     );
   };
 }

@@ -50,9 +50,7 @@ export class MongoRouter {
               .status(422)
               .json(this.routerCallback.validationError(value));
           }
-          res.json({
-            accessToken: this.tokenHandler.getToken(value, res),
-          });
+          this.routerResponses.getToken(res, this.tokenHandler, value);
         }
       );
     });
