@@ -42,10 +42,9 @@ export class TokenHandler {
     });
 
     if (!selectedUser) {
-      res
+      return res
         .status(422)
         .json(this.routerCallback.validationError("Not found user"));
-      return;
     }
     return jwt.sign(
       { userName: selectedUser.userName, role: selectedUser.role },

@@ -40,13 +40,15 @@ export class MongoRouter {
     );
 
     this.router.post("/getToken", (req, res) => {
+      console.log(req.body);
       validate(
         req.body,
         this.routerValidator.validateRequestForToken(),
         (err, value) => {
           if (err) {
-            res.status(422).json(this.routerCallback.validationError(value));
-            return;
+            return res
+              .status(422)
+              .json(this.routerCallback.validationError(value));
           }
           res.json({
             accessToken: this.tokenHandler.getToken(value, res),
@@ -64,8 +66,9 @@ export class MongoRouter {
           this.routerValidator.validateAddUser(),
           (err, value) => {
             if (err) {
-              res.status(422).json(this.routerCallback.validationError(value));
-              return;
+              return res
+                .status(422)
+                .json(this.routerCallback.validationError(value));
             }
             this.routerResponses.saveData(req.body, res);
           }
